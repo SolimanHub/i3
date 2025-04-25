@@ -1,0 +1,402 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██████╔╝
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+; polybar-msg cmd restart
+
+[fonts]
+opensansreg = DroidSans:Regular:size=10
+opensanssemibold = DroidSans:SemiBold:size=10
+opensansbold = DroidSans:Bold:size=10
+opensansboldhigh = DroidSans:Bold:size=12
+opensansital = DroidSans:Italic:size=10
+xos = xos4\ Terminus:size=14;0
+nerd = TerminessTTF Nerd Font:size=12;0
+
+[colors]
+light-red = #FF6347
+light-green = #32CD32
+light-purple = #8A2BE2
+light-blue = #1E90FF
+
+menucol-yellow = #FFD700
+menucol-blue = #0000FF
+menucol-orange = #FFA500
+menucol-red = #FF0000
+menucol-green = #32CD32
+menucol-sealine = #20B2AA
+menucol-purple = #8A2BE2
+menucol-pink = #FF69B4
+menucol-deepblue = #00008B
+menucol-lightblue = #ADD8E6
+
+fav-purple = #8A2BE2
+dark = #1E1E1E
+dark-red = #8B0000
+dark-green = #006400
+dark-purple = #4B0082
+light = #FFFFFF
+gray = #A9A9A9
+dark-gray = #696969
+
+[bar/example]
+enable-ipc = true
+override-redirect = false
+monitor = ${env:MONITOR:}
+
+bottom = false
+width = 100%
+height = 28 ;px
+
+background = ${colors.dark}
+foreground = ${colors.light}
+
+line-color = ${colors.light-purple}
+line-size = 2
+
+separator = "   "
+
+;List of fonts
+font-0 = ${fonts.opensansreg}
+font-1 = ${fonts.opensanssemibold}
+font-2 = ${fonts.opensansbold}
+font-3 = ${fonts.opensansital}
+font-4 = ${fonts.xos}
+font-5 = ${fonts.nerd}
+font-6 = ${fonts.opensansboldhigh}
+
+wm-restack = i3
+tray-position = left
+
+modules-left = workspaces
+modules-center = date
+modules-right = wifi eth layout memory memoryswap cpu system-cpu-temppercore battery brightness sound xkbstates bluetooth powermenu
+
+;IP address
+[module/eth]
+type = internal/network
+interface = enp3s0
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.light}
+label-connected = %local_ip%
+
+;Date correction
+[module/date]
+type = internal/date
+
+time = %H:%M
+date = %A, %B %d
+date-alt = %A, %B %d, %Y
+time-alt = %H:%M:%S
+
+format-prefix = " "
+format-padding = 2
+format-underline = ${colors.menucol-orange}
+format-foreground = ${colors.menucol-orange}
+interval = 20
+
+label = %date%, %time%
+label-font = 2
+label-foreground = ${colors.light}
+
+;Workspaces
+[module/workspaces]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+
+format = <label-state> <label-mode>
+
+label-dimmed-underline = ${colors.background}
+
+;On editing mode (resize for ex)
+label-mode = %mode%
+label-mode-background = ${colors.dark-purple}
+label-mode-underline = ${colors.fav-purple}
+label-mode-padding = 2
+label-mode-font = 4
+
+label-focused = %name%
+label-focused-background = ${colors.dark-green}
+label-focused-underline = ${colors.light-green}
+label-focused-padding = 0
+label-focused-margin = 1
+label-focused-font = 5
+
+label-unfocused = %name%
+label-unfocused-foreground = ${colors.gray}
+label-unfocused-padding = 2
+label-unfocused-font = 3
+
+label-visible = %name%
+label-visible-background = ${colors.dark-purple}
+label-visible-underline = ${colors.light-purple}
+label-visible-padding = 2
+label-visible-font = 3
+
+label-urgent = %index%
+label-urgent-background = ${colors.dark-red}
+label-urgent-underline = ${colors.light-red}
+label-urgent-padding = 1
+label-urgent-font = 3
+
+;Network
+[module/wifi]
+type = internal/network
+interface = wlp3s0
+
+label-wifi = %essid%
+format-connected =  <ramp-signal>--<label-connected>
+format-connected-padding = 2
+format-connected-foreground = ${colors.menucol-green}
+;format-connected-underline = ${colors.menucol-green}
+
+format-disconnected = " "
+format-disconnected-font = 7
+format-disconnected-padding = 2
+format-disconnected-foreground = ${colors.menucol-yellow}
+format-disconnected-underline = ${colors.menucol-yellow}
+
+label-connected = %local_ip%
+ramp-signal-0 = " "
+ramp-signal-1 = "▂"
+ramp-signal-2 = "▄"
+ramp-signal-3 = "▅"
+ramp-signal-4 = "▇"
+ramp-signal-font = 7
+ramp-signal-foreground = ${colors.light}
+
+[module/sound]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 2
+;format-volume-underline = ${colors.menucol-sealine}
+
+label-volume = %percentage%
+label-volume-font = 3
+
+label-muted =  (%percentage%)
+label-muted-font = 3
+label-muted-padding = 2
+label-muted-foreground = ${colors.gray}
+label-muted-underline = ${colors.gray}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-font = 7
+ramp-volume-foreground = ${colors.menucol-sealine}
+
+;Brightness
+[module/brightness]
+type = internal/xbacklight
+format = <label>
+format-padding = 2
+format-prefix = 
+;format-underline = ${colors.menucol-yellow}
+format-prefix-foreground = ${colors.menucol-yellow}
+
+label = " %percentage%"
+label-font = 3
+
+;Keyboard Layout
+[module/layout]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+blacklist-2 = scroll lock
+
+format-prefix = " "
+;format-underline = ${colors.menucol-blue}
+format-foreground = ${colors.menucol-blue}
+format-padding = 2
+
+label-layout = %layout%
+label-layout-font = 2
+label-layout-foreground = ${colors.light}
+
+;Keyboard lock states by xkeyboard
+[module/xkbstates]
+type = internal/xkeyboard
+format = <label-indicator>
+
+;format-underline = ${colors.menucol-green}
+format-padding = 2
+
+label-indicator-on-capslock = "%{F#77BD8B} "
+label-indicator-off-capslock = "%{F#333} "
+label-indicator-on-numlock = "%{F#77BD8B} "
+label-indicator-off-numlock = "%{F#333} "
+label-indicator-on-scrolllock = "%{F#77BD8B}"
+label-indicator-off-scrolllock = "%{F#333}"
+
+;Power Menu
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+;format-underline = ${colors.menucol-lightblue}
+format-padding = 1
+
+label-open = ⏻
+label-open-padding = 2
+label-open-foreground = ${colors.menucol-lightblue}
+label-close = 
+label-close-padding = 2
+label-close-foreground = ${colors.menucol-lightblue}
+label-separator = ⏽
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = 
+menu-0-0-foreground = ${colors.menucol-green}
+menu-0-0-margin = 2
+menu-0-0-exec = logout
+menu-0-1 = 
+menu-0-1-foreground = ${colors.menucol-yellow}
+menu-0-1-margin = 2
+menu-0-1-exec = reboot
+menu-0-2 = ⏻
+menu-0-2-foreground = ${colors.menucol-red}
+menu-0-2-margin = 2
+menu-0-2-exec = sh ~/.config/i3/polybar/scripts/powermenu.sh
+
+;Battery Indicator
+[module/battery]
+type = internal/battery
+;format-underline = ${colors.menucol-green}
+battery = BAT0
+full-at = 100
+
+format-charging = <animation-charging> <label-charging>
+format-charging-padding = 2
+;format-charging-underline = ${colors.menucol-orange}
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-padding = 2
+;format-discharging-underline = ${colors.menucol-orange}
+
+label-charging = %percentage%
+label-charging-font = 3
+
+label-discharging = %percentage%
+label-discharging-font = 4
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+animation-charging-foreground = ${colors.menucol-green}
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-5 = 
+animation-discharging-6 = 
+animation-discharging-7 = 
+animation-discharging-8 = 
+animation-discharging-9 = 
+animation-discharging-framerate = 750
+animation-discharging-foreground = ${colors.menucol-orange}
+
+[module/bluetooth]
+;Instalar sudo pacman -S blueberry
+type = custom/script
+exec = ~/.config/i3/polybar/scripts/bluetooth.sh
+interval = 5
+click-left = exec blueberry
+click-right = exec bluetoothctl power toggle
+format-padding = 1
+format-background = #000000
+format-foreground = #ffffff
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+format-padding = 2
+;format-underline = ${colors.menucol-red}
+
+format-prefix = 
+format-prefix-foreground = ${colors.menucol-red}
+
+label = " %percentage%"
+label-font = 3
+
+[module/memory]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+;format-underline = ${colors.menucol-purple}
+
+format-prefix = 
+format-prefix-foreground = ${colors.menucol-purple}
+
+label = " %gb_used%"
+label-font = 3
+
+[module/memoryswap]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+;format-underline = ${colors.menucol-pink}
+
+format-prefix = 
+format-prefix-foreground = ${colors.menucol-pink}
+
+label = " %gb_swap_used%"
+label-font = 3
+
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+format = <ramp> <label>
+format-padding = 2
+;format-underline = ${colors.menucol-deepblue}
+
+format-warn = <ramp> <label-warn>
+label = %temperature-c%
+label-font = 3
+
+label-warn = "%temperature-c% "
+label-warn-font = 3
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-font = 7
+ramp-foreground = ${colors.menucol-deepblue}
+
+[module/system-cpu-temppercore]
+type = custom/script
+exec = $HOME/.config/i3/polybar/scripts/system-cpu-temppercore.sh
+;format-underline = ${colors.menucol-blue}
+interval = 60
