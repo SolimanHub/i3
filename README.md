@@ -122,9 +122,6 @@ sudo pacman -S alacritty
 # Instalar firefox-developer-edition para el navegador
 sudo pacman -S firefox-developer-edition 
 
-# Instalar google-chrome-stable (si usas AUR)
-yay -S google-chrome 
-
 # Instalar thunar para el gestor de archivos
 sudo pacman -S thunar 
 ``` 
