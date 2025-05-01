@@ -127,6 +127,12 @@ sudo pacman -S thunar
 ``` 
 
 #### Polybar
+
+Crear enlace simbolico en .config
+```bash
+ln -s $HOME/.config/i3/polybar $HOME/.config/polybar
+```
+
 Para asegurar el correcto funcionamiento de tu configuración de Polybar, instala estos paquetes en Arch Linux:
 
 ```bash
@@ -148,6 +154,7 @@ Notas:
 - Para la integración de Bluetooth, asegúrate de tener habilitado y funcionando `bluez` y su frontend `blueberry`:
 ```bash
 sudo pacman -S bluez bluez-utils blueberry
+sudo systemctl enable --now bluetooth
 ```
 - Para el control de red desde la barra, asegúrate de tener `networkmanager` y `nmcli`.
 
