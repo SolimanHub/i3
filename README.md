@@ -41,7 +41,7 @@
 | $mod+Shift+r                | Reiniciar i3                                                        |
 | $mod+Shift+e                | Salir de i3 (cierra la sesión)                                      |
 | $mod+r                      | Entrar en modo de redimensionado                                    |
-| $mod+Return                 | Abrir terminal (alacritty)                                          |
+| $mod+Return                 | Abrir terminal (kitty)                                          |
 | $mod+Shift+q                | Cerrar ventana enfocada                                             |
 | $mod+d                      | Lanzador de aplicaciones (rofi -show drun)                          |
 | $mod+c                      | Lanzador de ventanas (rofi -show window)                            |
